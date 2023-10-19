@@ -1,0 +1,12 @@
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+        "firstName": "Marcel",
+        "lastName": "Jones",
+        "gender": "male",
+        "email": "acharlota@liveinternet.ru",
+        "phone": "+967 253 210 0344",
+        "password": "M9lbMdydMN",
+        "admin": true
+}
