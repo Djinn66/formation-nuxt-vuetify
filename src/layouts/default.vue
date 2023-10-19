@@ -1,17 +1,17 @@
 <script setup lang="ts">
 const theme = ref< 'light' | 'dark' >('dark')
+const drawerActivated = ref(false)
 </script>
 
 <template>
   <v-app :theme="theme">
     <v-layout class="rounded rounded-md">
-      <v-navigation-drawer>
-        <v-list>
-          <v-list-item title="Navigation drawer"></v-list-item>
-        </v-list>
-      </v-navigation-drawer>
+      <app-navigation-drawer v-if="drawerActivated"/>
 
       <v-app-bar title="Application bar">
+        <template v-slot:prepend>
+          <v-app-bar-nav-icon @click="drawerActivated = !drawerActivated"/>
+        </template>
         <app-btn-theme v-model="theme"/>
       </v-app-bar>
 
