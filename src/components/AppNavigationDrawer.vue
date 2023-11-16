@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+import {capitalize} from "vue";
+
 /** Define props : modelValue est lié au v-model parent */
 interface Props {
   modelValue: boolean
@@ -23,7 +25,11 @@ const computedDrawerVisible = computed({
 <template>
   <v-navigation-drawer v-model="computedDrawerVisible" temporary>
     <v-list>
-      <v-list-item title="Navigation drawer"></v-list-item>
+      <v-list-item v-for="{ title, to, icon } in appNavigationDrawerMenuLinks"
+                   :key="to"
+                   :to="to"
+                   :prepend-icon="icon"
+                   :title="capitalize(title)"/>
     </v-list>
   </v-navigation-drawer>
 </template>
