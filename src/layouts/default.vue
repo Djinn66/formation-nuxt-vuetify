@@ -1,9 +1,9 @@
 <script setup lang="ts">
-
+const theme = ref< 'light' | 'dark' >('dark')
 </script>
 
 <template>
-  <v-app>
+  <v-app :theme="theme">
     <v-layout class="rounded rounded-md">
       <v-navigation-drawer>
         <v-list>
@@ -11,7 +11,9 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-app-bar title="Application bar"></v-app-bar>
+      <v-app-bar title="Application bar">
+        <app-btn-theme v-model="theme"/>
+      </v-app-bar>
 
       <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
         <slot/>
