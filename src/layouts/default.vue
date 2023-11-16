@@ -6,7 +6,7 @@ const drawerActivated = ref(false)
 <template>
   <v-app :theme="theme">
     <v-layout class="rounded rounded-md">
-      <app-navigation-drawer v-if="drawerActivated"/>
+      <app-navigation-drawer v-model="drawerActivated"/>
 
       <v-app-bar title="Application bar">
         <template v-slot:prepend>
