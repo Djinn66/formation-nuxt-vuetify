@@ -1,0 +1,77 @@
+<script setup lang="ts" generic="T extends Entity ">
+
+import {ref} from "vue";
+import type {Entity} from "~/types/entity";
+import type {ReadonlyHeaders} from "~/types/headers";
+
+defineOptions({name: 'AppCrudTable'})
+
+interface Props {
+  title: string | null
+  headers?: ReadonlyHeaders
+  data: Array<T>
+  loading: boolean
+  editItemFunction?: (item: T) => void
+  deleteItemFunction?: (item: T) => void
+}
+
+const {
+  title = null,
+  loading = false,
+  editItemFunction = defaultEditItemFunction,
+  deleteItemFunction = defaultDeleteItemFunction,
+}= defineProps<Props>()
+
+
+const dialogDelete = ref(false)
+const dialogDeleteIsLoading = ref(false)
+const selectedItem = ref<T>()
+
+/**
+ * Ouvre la confirmation de suppression pour l'élément spécifié.
+ *
+ * @param item - L'élément à supprimer.
+ * @return void
+ */
+const openDialogDelete = (item:T) => {
+  dialogDelete.value = true
+  selectedItem.value = item
+}
+
+</script>
+
+<template>
+  <v-data-table
+      :headers="headers"
+      :items="data"
+      :loading="loading"
+      class="elevation-1"
+  >
+    <template v-slot:top>
+      <v-toolbar flat v-if="title">
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
+        <v-divider class="mx-4" inset vertical/>
+        <v-spacer/>
+      </v-toolbar>
+    </template>
+    <template v-slot:item.image="{ value }">
+      <v-img :src="value" max-height="100" max-width="100"/>
+    </template>
+    <template v-slot:item.thumbnail="{ value }">
+      <v-img :src="value" max-height="500" max-width="500"/>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon size="small" class="me-2" @click="editItemFunction(item)" icon="mdi-pencil"/>
+      <v-icon size="small" @click="openDialogDelete(item)" icon="mdi-delete"/>
+    </template>
+  </v-data-table>
+  <app-crud-table-delete-dialog
+      v-model:dialogDelete="dialogDelete"
+      :loading="dialogDeleteIsLoading"
+      @validate="selectedItem && deleteItemFunction(selectedItem)"
+  />
+</template>
+
+<style scoped>
+
+</style>
