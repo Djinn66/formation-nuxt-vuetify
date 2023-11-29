@@ -5,7 +5,7 @@
     default: () => [] as Array<User>
   })
 
-  const editUserFunction = (_item: User) => useRouter().push({ path: `/utilisateurs/modifier`})
+  const editUserFunction = (item: User) => useRouter().push({ path: `/utilisateurs/modifier/${item.id}`})
 
 </script>
 

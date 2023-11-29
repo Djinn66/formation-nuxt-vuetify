@@ -6,7 +6,7 @@ const { data, pending } = useFetch<Array<Product>>(`http://localhost:5000/produc
   default:() => [] as Array<Product>,
 })
 
-const editProductFunction = (_item: Product) => useRouter().push({ path: `/produits/modifier`})
+const editProductFunction = (item: Product) => useRouter().push({ path: `/produits/modifier/${item.id}`})
 
 
 </script>
