@@ -1,5 +1,9 @@
-
-
+/**
+ * Default create item function.
+ */
+export const defaultCreateItemFunction = () => {
+    console.warn('[App warn]: Create a function to create:')
+}
 /**
  * Default function for editing an item.
  *

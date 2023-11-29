@@ -5,6 +5,7 @@
     default: () => [] as Array<User>
   })
 
+  const createUserFunction = () => useRouter().push({ path: `/utilisateurs/ajouter`})
   const editUserFunction = (item: User) => useRouter().push({ path: `/utilisateurs/modifier/${item.id}`})
 
 </script>
@@ -13,6 +14,7 @@
   <app-crud-table :data="data"
                   :loading="pending"
                   title="Utilisateurs"
+                  :create-item-function="createUserFunction"
                   :edit-item-function="editUserFunction"
                   :headers="appCrudTableHeaders.users"/>
 </template>

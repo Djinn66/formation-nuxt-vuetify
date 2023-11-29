@@ -11,6 +11,7 @@ interface Props {
   headers?: ReadonlyHeaders
   data: Array<T>
   loading: boolean
+  createItemFunction?: () => void
   editItemFunction?: (item: T) => void
   deleteItemFunction?: (item: T) => void
 }
@@ -18,6 +19,7 @@ interface Props {
 const {
   title = null,
   loading = false,
+  createItemFunction = defaultCreateItemFunction,
   editItemFunction = defaultEditItemFunction,
   deleteItemFunction = defaultDeleteItemFunction,
 }= defineProps<Props>()
@@ -52,6 +54,7 @@ const openDialogDelete = (item:T) => {
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical/>
         <v-spacer/>
+        <v-btn color="primary" @click="createItemFunction" :disabled="loading"> Ajouter </v-btn>
       </v-toolbar>
     </template>
     <template v-slot:item.image="{ value }">
