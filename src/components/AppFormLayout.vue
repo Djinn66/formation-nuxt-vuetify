@@ -17,6 +17,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const afterClickLoading = ref(false)
 
+const form = ref()
+
+/**
+ * Valide le formulaire et exécute la fonction handleClickValidForm
+ * si le formulaire est valide.
+ * @return void
+ */
+async function handleValidate () {
+  const { valid } = await form.value.validate()
+  valid && handleClickValidForm()
+}
+
 const handleClickValidForm = () => {
   let request = `http://localhost:5000/${props.endpoint}`
   let method: 'POST' | 'PUT' = 'POST'
@@ -34,6 +46,8 @@ const handleClickValidForm = () => {
   })
 }
 
+
+
 </script>
 
 <template>
@@ -42,13 +56,13 @@ const handleClickValidForm = () => {
           :title="title"
           :subtitle="update ? 'Modification' : 'Création'">
     <v-card-text>
-      <v-form :disabled="loading || afterClickLoading">
+      <v-form ref="form" :disabled="loading || afterClickLoading">
         <slot/>
       </v-form>
     </v-card-text>
     <v-card-actions>
       <v-btn @click="$router.back()">Annuler</v-btn>
-      <v-btn @click="handleClickValidForm" :loading="afterClickLoading">Valider</v-btn>
+      <v-btn @click="handleValidate" :loading="afterClickLoading">Valider</v-btn>
     </v-card-actions>
   </v-card>
 </template>

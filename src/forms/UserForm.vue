@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import type {User} from "~/types/user";
+import {formValidationRules} from "~/forms/formValidationRules";
 
 interface Props {
   user: User | Omit<User, "id">
@@ -15,6 +16,7 @@ const computedIconPassword = computed(() => passwordVisible.value ? 'mdi-eye' : 
 
 <template>
         <v-text-field v-model="user.lastName"
+                      :rules="[formValidationRules.required]"
                       label="Nom"/>
         <v-text-field v-model="user.firstName"
                       label="Prénom"/>
@@ -23,6 +25,10 @@ const computedIconPassword = computed(() => passwordVisible.value ? 'mdi-eye' : 
                         label="Genre"/>
         <v-text-field v-model="user.email"
                       label="Mail"
+                      :rules="[
+                          formValidationRules.required,
+                          formValidationRules.email,
+                          ]"
                       type="email"/>
         <v-text-field v-model="user.phone"
                       label="Téléphone"/>
