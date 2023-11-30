@@ -1,47 +1,19 @@
 <script setup lang="ts">
+
 import type {User} from "~/types/user";
 
 interface Props {
   user: User | Omit<User, "id">
-  loading?: boolean
-  update?: boolean
 }
+defineProps<Props>()
 
-const props = withDefaults(defineProps<Props>(), {
-  loading: false,
-  update: false
-})
-
-const afterClickLoading = ref(false)
 const passwordVisible = ref(false)
-const computedIconPassword = computed(() => passwordVisible.value ? 'mdi-eye' : 'mdi-eye-off')
 
-const handleClickValidForm = () => {
-  let request = 'http://localhost:5000/users'
-  let method: 'POST' | 'PUT' = 'POST'
-  if('id' in props.user && props.user.id) {
-    //UPDATE REQUEST
-    method = 'PUT'
-    request += `/${props.user.id}`
-  }
-  afterClickLoading.value = true
-  useFetch(request, {
-    method,
-    body: props.user,
-    onResponseError(_context) {afterClickLoading.value = false},
-    onResponse() { useRouter().push({ path: `/utilisateurs`})},
-  })
-}
+const computedIconPassword = computed(() => passwordVisible.value ? 'mdi-eye' : 'mdi-eye-off')
 
 </script>
 
 <template>
-  <v-card width="100%"
-          :loading="loading"
-          title="Utilisateur"
-          :subtitle="update? 'Modification' : 'Création'">
-    <v-card-text>
-      <v-form :disabled="loading || afterClickLoading">
         <v-text-field v-model="user.lastName"
                       label="Nom"/>
         <v-text-field v-model="user.firstName"
@@ -63,13 +35,6 @@ const handleClickValidForm = () => {
         </v-text-field>
         <v-checkbox v-model="user.admin"
                     label="Administrateur"/>
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      <v-btn @click="$router.back()">Annuler</v-btn>
-      <v-btn @click="handleClickValidForm" :loading="afterClickLoading">Valider</v-btn>
-    </v-card-actions>
-  </v-card>
 </template>
 
 <style scoped>

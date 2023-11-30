@@ -11,7 +11,15 @@ const {data: product, pending} = useFetch<Product>(`http://localhost:5000/produc
 </script>
 
 <template>
-  <ProductForm :product="product" :loading="pending" :update="true"/>
+  <app-form-layout
+      endpoint="products"
+      :entity="product"
+      :title="`Modifier le produit ${product?.title}`"
+      :loading="pending"
+      :update="true"
+  >
+    <ProductForm :product="product"/>
+  </app-form-layout>
 </template>
 
 <style scoped>

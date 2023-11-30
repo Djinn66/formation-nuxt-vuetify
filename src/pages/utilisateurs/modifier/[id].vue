@@ -11,7 +11,15 @@ const {data: user, pending} = useFetch<User>(`http://localhost:5000/users/${user
 </script>
 
 <template>
-  <UserForm :user="user" :loading="pending" :update="true"/>
+  <app-form-layout
+      :entity="user"
+      endpoint="users"
+      title="Modifier un utilisateur"
+      :loading="pending"
+      :update="true"
+  >
+    <UserForm :user="user"/>
+  </app-form-layout>
 </template>
 
 <style scoped>

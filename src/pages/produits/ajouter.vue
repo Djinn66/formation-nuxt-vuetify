@@ -7,7 +7,13 @@ const product = ref<Omit<Product, "id">>(productFormDefaultValue)
 </script>
 
 <template>
-  <ProductForm :product="product"/>
+  <app-form-layout
+      endpoint="products"
+      :entity="product"
+      :title="`Modifier le produit ${product?.title}`"
+  >
+    <ProductForm :product="product"/>
+  </app-form-layout>
 </template>
 
 <style scoped>
