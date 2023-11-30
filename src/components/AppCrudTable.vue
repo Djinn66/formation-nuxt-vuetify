@@ -3,6 +3,7 @@
 import {ref} from "vue";
 import type {Entity} from "~/types/entity";
 import type {ReadonlyHeaders} from "~/types/headers";
+import {getFilterKeys} from "~/utils/getFilterKeys";
 
 defineOptions({name: 'AppCrudTable'})
 
@@ -27,6 +28,7 @@ const props = withDefaults(defineProps<Props>(),{
 
 const dialogDelete = ref(false)
 const dialogDeleteIsLoading = ref(false)
+const search = ref('')
 const selectedItem = ref<T>()
 
 /**
@@ -54,6 +56,8 @@ const handleValidateDelete = async () => {
       :headers="headers"
       :items="data"
       :loading="loading"
+      :search="search"
+      :filter-keys="getFilterKeys(headers)"
       class="elevation-1"
   >
     <template v-slot:top>
@@ -61,6 +65,14 @@ const handleValidateDelete = async () => {
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical/>
         <v-spacer/>
+        <v-text-field
+            v-model="search"
+            label="Search"
+            prepend-inner-icon="mdi-magnify"
+            single-line
+            variant="outlined"
+            hide-details
+        ></v-text-field>
         <v-btn color="primary" @click="createItemFunction" :disabled="loading"> Ajouter </v-btn>
       </v-toolbar>
     </template>
