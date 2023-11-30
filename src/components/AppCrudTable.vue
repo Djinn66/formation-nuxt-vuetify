@@ -11,18 +11,18 @@ interface Props {
   headers?: ReadonlyHeaders
   data: Array<T>
   loading: boolean
-  createItemFunction?: () => void
-  editItemFunction?: (item: T) => void
-  deleteItemFunction?: (item: T) => void
+  createItemFunction?: Function
+  editItemFunction?: Function
+  deleteItemFunction?: Function
 }
 
-const {
-  title = null,
-  loading = false,
-  createItemFunction = defaultCreateItemFunction,
-  editItemFunction = defaultEditItemFunction,
-  deleteItemFunction = defaultDeleteItemFunction,
-}= defineProps<Props>()
+const props = withDefaults(defineProps<Props>(),{
+  title: null,
+  loading: false,
+  createItemFunction: defaultCreateItemFunction,
+  editItemFunction: defaultEditItemFunction,
+  deleteItemFunction: defaultDeleteItemFunction,
+})
 
 
 const dialogDelete = ref(false)
@@ -38,6 +38,13 @@ const selectedItem = ref<T>()
 const openDialogDelete = (item:T) => {
   dialogDelete.value = true
   selectedItem.value = item
+}
+
+const handleValidateDelete = async () => {
+  dialogDeleteIsLoading.value = true
+  await props.deleteItemFunction(selectedItem.value as T)
+  dialogDeleteIsLoading.value = false
+  dialogDelete.value = false
 }
 
 </script>
@@ -71,7 +78,7 @@ const openDialogDelete = (item:T) => {
   <app-crud-table-delete-dialog
       v-model:dialogDelete="dialogDelete"
       :loading="dialogDeleteIsLoading"
-      @validate="selectedItem && deleteItemFunction(selectedItem)"
+      @validate="handleValidateDelete"
   />
 </template>
 

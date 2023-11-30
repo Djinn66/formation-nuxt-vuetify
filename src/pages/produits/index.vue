@@ -9,6 +9,15 @@ const { data, pending } = useFetch<Array<Product>>(`http://localhost:5000/produc
 const createProductFunction = () => useRouter().push({ path: `/produits/ajouter`})
 const editProductFunction = (item: Product) => useRouter().push({ path: `/produits/modifier/${item.id}`})
 
+const deleteProductFunction = (item: Product) => useFetch(`http://localhost:5000/products/${item.id}`, {
+  method: 'DELETE',
+  onResponse(context) {
+    if(context.response.ok){
+      data.value = [...data.value.filter(product => product.id !== item.id)]
+    }
+  }
+})
+
 </script>
 
 <template>
@@ -17,6 +26,7 @@ const editProductFunction = (item: Product) => useRouter().push({ path: `/produi
                   title="Produits"
                   :create-item-function="createProductFunction"
                   :edit-item-function="editProductFunction"
+                  :delete-item-function="deleteProductFunction"
                   :headers="appCrudTableHeaders.products"/>
 </template>
 
