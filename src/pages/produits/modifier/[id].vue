@@ -18,7 +18,7 @@ const {data: product, pending} = useFetch<Product>(`http://localhost:5000/produc
       :loading="pending"
       :update="true"
   >
-    <ProductForm :product="product"/>
+    <ProductForm v-model="product"/>
   </app-form-layout>
 </template>
 

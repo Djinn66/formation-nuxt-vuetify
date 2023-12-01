@@ -18,7 +18,7 @@ const {data: user, pending} = useFetch<User>(`http://localhost:5000/users/${user
       :loading="pending"
       :update="true"
   >
-    <UserForm :user="user"/>
+    <UserForm v-model="user"/>
   </app-form-layout>
 </template>
 

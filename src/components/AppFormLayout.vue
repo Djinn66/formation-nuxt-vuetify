@@ -46,8 +46,6 @@ const handleClickValidForm = () => {
   })
 }
 
-
-
 </script>
 
 <template>

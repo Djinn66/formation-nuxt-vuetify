@@ -12,7 +12,7 @@ const product = ref<Omit<Product, "id">>(productFormDefaultValue)
       :entity="product"
       :title="`Modifier le produit ${product?.title}`"
   >
-    <ProductForm :product="product"/>
+    <ProductForm v-model="product"/>
   </app-form-layout>
 </template>
 

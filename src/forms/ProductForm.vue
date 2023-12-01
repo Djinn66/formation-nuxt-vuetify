@@ -3,10 +3,19 @@
 import type {Product} from "~/types/product";
 
 interface Props {
-  product: Product | Omit<Product, "id">
+  modelValue: unknown
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const emit =defineEmits<{
+  'update:modelValue': [value: Product | Omit<Product, "id">]
+}>()
+
+const product = computed({
+  get: () => props.modelValue as Product | Omit<Product, "id">,
+  set: (value) => emit('update:modelValue', value)
+})
 
 </script>
 

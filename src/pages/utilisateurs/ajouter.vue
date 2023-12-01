@@ -12,7 +12,7 @@ const user = ref<Omit<User, "id">>(userFormDefaultValue)
       endpoint="users"
       title="Ajouter un utilisateur"
   >
-    <UserForm :user="user"/>
+    <UserForm v-model="user"/>
   </app-form-layout>
 </template>
 
