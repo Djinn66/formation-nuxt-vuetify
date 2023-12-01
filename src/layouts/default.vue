@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import {storeToRefs} from "pinia";
+
 const theme = ref< 'light' | 'dark' >('dark')
 const drawerActivated = ref(false)
+
 </script>
 
 <template>
@@ -18,6 +21,7 @@ const drawerActivated = ref(false)
       <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
         <slot/>
       </v-main>
+      <app-snackbar/>
     </v-layout>
   </v-app>
 </template>

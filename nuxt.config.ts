@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     transpile: ['vuetify'],
   },
   modules: [
+    '@pinia/nuxt',
     async (_options: {}, nuxt: Record<string, any>) => {
       // @ts-ignore
       nuxt.hooks.hook('vite:extendConfig', config => config.plugins.push(

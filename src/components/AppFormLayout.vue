@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="T extends Entity">
 import type {Entity} from "~/types/entity";
 import {appNavigationDrawerMenuLinks} from "~/utils/appNavigationDrawerMenuLinks";
+import {useSnackbarStore} from "~/stores/snackbar";
 
 interface Props {
   entity: T | Omit<T, "id">
@@ -18,6 +19,8 @@ const props = withDefaults(defineProps<Props>(), {
 const afterClickLoading = ref(false)
 
 const form = ref()
+
+const {openSnackbar} = useSnackbarStore()
 
 /**
  * Valide le formulaire et exécute la fonction handleClickValidForm
@@ -41,8 +44,19 @@ const handleClickValidForm = () => {
   useFetch(request, {
     method,
     body: props.entity,
-    onResponseError(_context) {afterClickLoading.value = false},
-    onResponse() { useRouter().push({ path: appNavigationDrawerMenuLinks[props.endpoint].to})},
+    onResponseError(_context) {
+      openSnackbar('Une erreur est survenue', {color: 'error'})
+      afterClickLoading.value = false
+    },
+    onRequestError(_context) {
+      openSnackbar('Une erreur est survenue', {color: 'error'})
+    },
+    onResponse(context) {
+      if(context.response.ok) {
+        openSnackbar('Enregistrement reussi')
+        useRouter().push({ path: appNavigationDrawerMenuLinks[props.endpoint].to})
+      }
+    },
   })
 }
 
