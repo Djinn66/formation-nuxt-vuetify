@@ -1,5 +1,6 @@
 import UserForm from "~/forms/UserForm.vue";
 import ProductForm from "~/forms/ProductForm.vue";
+import {userFormDefaultValue} from "~/utils/userFormDefaultValue";
 
 export const formConfig = {
     components:{
@@ -8,7 +9,6 @@ export const formConfig = {
     },
     defaultValues:{
         users: userFormDefaultValue,
-        products: productFormDefaultValue
     },
     validationRules : {
         required: (v:string) => !!v || 'Ce champ est requis !',
