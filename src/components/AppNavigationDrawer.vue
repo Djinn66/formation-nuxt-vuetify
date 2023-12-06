@@ -23,7 +23,7 @@ const computedDrawerVisible = computed({
 </script>
 
 <template>
-  <v-navigation-drawer v-model="computedDrawerVisible" temporary>
+  <v-navigation-drawer v-model="computedDrawerVisible">
     <v-list>
       <v-list-item v-for="{ title, to, icon } in appNavigationDrawerMenuLinks"
                    :key="to"

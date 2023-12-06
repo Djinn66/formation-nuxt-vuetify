@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {storeToRefs} from "pinia";
 
 const theme = ref< 'light' | 'dark' >('dark')
 const drawerActivated = ref(false)
