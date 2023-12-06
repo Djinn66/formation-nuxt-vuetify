@@ -22,7 +22,7 @@ const searchComputed = computed({
       v-model="searchComputed"
       hide-details
       label="Search"
-      prepend-icon="mdi-magnify"
+      prepend-inner-icon="mdi-magnify"
   ></v-text-field>
 </template>
 
