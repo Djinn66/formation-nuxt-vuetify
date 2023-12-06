@@ -1,20 +1,28 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+
+import {computed} from "vue";
+
 interface Props {
-  searchItem: string;
+  modelValue: Object;
 }
 
 const props = defineProps<Props>();
 
-const emits = defineEmits<{ "update:search": [value: string] }>();
+const emits = defineEmits<{ "update:modelValue": [value: Object] }>();
+
+const searchComputed = computed({
+  get: () => props.modelValue,
+  set: (value: Object) => emits("update:modelValue", value),
+});
+
 </script>
 
 <template>
   <v-text-field
-    v-bind="searchItem"
-    @input="$emit('update:search', $event)"
-    label="Search"
-    hide-details
-    prepend-icon="mdi-magnify"
+      v-model="searchComputed"
+      hide-details
+      label="Search"
+      prepend-icon="mdi-magnify"
   ></v-text-field>
 </template>
 
