@@ -7,6 +7,15 @@ export default defineNuxtPlugin((app) => {
     const vuetify = createVuetify({
         // ... your configuration
         components:labsComponents,
+        theme: {
+            themes: {
+                light: {
+                    colors: {
+                        drawer: '#2B2A39'
+                    },
+                },
+            },
+        },
     })
     app.vueApp.use(vuetify)
 })

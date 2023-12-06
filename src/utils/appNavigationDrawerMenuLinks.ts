@@ -1,8 +1,11 @@
+import enrolementIcon from 'assets/icons/enrolement.svg'
+import exportIcon from 'assets/icons/export.svg'
+import siteIcon from 'assets/icons/site.svg'
+import cameraIcon from 'assets/icons/camera.svg'
+
 export const appNavigationDrawerMenuLinks = {
-    utilisateurs:{ to:'/utilisateurs', title:'utilisateurs', icon:'mdi-account'},
-    produits:{ to:'/produits', title:'produits', icon:'mdi-shopping'},
-    users:{ to:'/generic/users', title:'generic utilisateurs', icon:'mdi-account'},
-    products:{ to:'/generic/products', title:'generic produits', icon:'mdi-shopping'},
+    gestionEnrolement: {to: '/gestion/enrolement', title: 'Gestion enrôlement', icon: enrolementIcon},
+    exporter: {to: '/export', title: 'Export', icon: exportIcon},
+    gestionSite: {to: '/gestion/site', title: 'Gestion sites', icon: siteIcon},
+    gestionCamera: {to: '/gestion/camera', title: 'Gestion caméra', icon: cameraIcon},
 }
-
-
