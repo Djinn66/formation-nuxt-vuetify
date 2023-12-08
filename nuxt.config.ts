@@ -4,6 +4,11 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   // @ts-ignore
   srcDir: 'src/',
+  runtimeConfig: {
+    public: {
+      API_BASE: process.env.API_BASE
+    }
+  },
   ssr: false,
   typescript: { typeCheck: true , strict: true },
   css: ['vuetify/styles', '@mdi/font/css/materialdesignicons.css'],
