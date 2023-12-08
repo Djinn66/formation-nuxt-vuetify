@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import type {Product} from "~/types/product";
+import {formConfig} from "~/forms/form.config";
 
 interface Props {
   modelValue: unknown
@@ -13,7 +14,11 @@ const emit =defineEmits<{
 }>()
 
 const product = computed({
-  get: () => props.modelValue as Product | Omit<Product, "id">,
+  get: () => {
+    return props.modelValue ?
+        props.modelValue as Product | Omit<Product, "id"> :
+        formConfig.defaultValues.products
+  },
   set: (value) => emit('update:modelValue', value)
 })
 
